@@ -1,0 +1,22 @@
+<div class="container formContainer">
+	<div class="alert alert-danger" ng-show="rc.error">
+		{{rc.errorMsg}}
+	</div>
+    <form method="POST" ng-submit="rc.registerUser()" class="form-data">
+        <h2 class="form-signin-heading">Create your account</h2>
+            <div class="form-group">
+                <input type="text" name="username" class="form-control" placeholder="Username"  autofocus="true"
+                	   ng-model="rc.credentials.username"></input>
+				
+                <input type="password" name="password" class="form-control" placeholder="Password"
+                	   ng-model="rc.credentials.password">
+                </input>
+
+                <input type="password" name="passwordConfirm" class="form-control" placeholder="Confirm your password"
+                	   ng-model="rc.credentials.passwordConfirm">
+                </input>
+            </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+    </form>
+</div>

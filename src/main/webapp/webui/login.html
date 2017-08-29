@@ -1,0 +1,18 @@
+<div class="container formContainer">
+  	<div class="alert alert-danger" ng-show="lc.error">
+		{{lc.errorMsg}}
+	</div>
+	<form method="post" ng-submit="lc.login()" class="form-data">
+		<h2 class="form-heading">Log in</h2>
+		
+		<div class="form-group">
+			<input type="text" class="form-control" name="username" placeholder="Username" 
+			 	   autofocus="true"  ng-model="lc.credentials.username"/>
+			<input type="password" class="form-control" name="password" placeholder="Password" 
+				   ng-model="lc.credentials.password"/>
+			
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+			<h4 class="text-center"><a href="#/register">Create an account</a></h4>
+		</div>
+	</form>
+</div>
