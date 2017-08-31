@@ -1,13 +1,9 @@
 package com.townscript.demo.model;
 
-import java.util.Set;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,7 +12,6 @@ public class Role {
 
 	private Long id;
 	private String name;
-	//private Set<User> users;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,14 +27,6 @@ public class Role {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	/*@ManyToMany(mappedBy = "roles")
-	public Set<User> getUsers() {
-		return users;
-	}
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}*/
 	
 	@Override
 	public String toString() {

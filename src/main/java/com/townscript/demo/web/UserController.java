@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.townscript.demo.api.APIResponse;
@@ -70,4 +71,13 @@ public class UserController {
 		authResp.put("user", userRetrieved);
 		return APIResponse.toOkResponse(authResp);
 	}
+	
+/*	@RequestMapping(value="/uploadUserSong", method=RequestMethod.POST)
+	public @ResponseBody APIResponse uploadSong( @RequestParam("songTitle") String songTitle)
+	{
+		System.out.println("input title is " + songTitle);
+		
+		return APIResponse.toOkResponse("Sufcc");
+		
+	}*/
 }

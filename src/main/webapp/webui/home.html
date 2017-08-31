@@ -1,7 +1,7 @@
 <div class="container">
  <div ng-if="currUser">
    <h2>Welcome {{currUser}}
-    <button type="button" class="btn btn-warning btn-md" data-toggle="modal" data-target="#uploadSongModal">
+    <button type="button" class="btn btn-warning btn-md" data-toggle="modal" data-target="#uploadSongModal" ng-Click="hc.resetSongFields()">
       Upload Song
     </button> 
     <a ng-click="hc.logout()" class="pull-right">Logout</a>
@@ -14,16 +14,19 @@
 		    <button type="button" class="close" data-dismiss="modal">&times;</button>
 			  <h4 class="modal-title">Upload Songs</h4>
 		  </div>
-		  <form action="#" method="POST" id="uploadSongForm"  modelAttribute="uploadedSong">
-			<div class="modal-body">
-				<div class="form-group">
-			  		<label for="songTitle" class="form-control-label">Title:</label>
-              		<input type="text" class="form-control" name="songTitle" id="songTitle">
-			 	</div>
-				<div class="form-group">
-					<label for="uploadedFile"> Select a file to upload:</label>
-            		<input type="file" name="uploadedFile" value="uploadedFile" id="uploadedFile">
-				</div>	
+		  <form method="POST" id="uploadSongForm" enctype="multipart/form-data" ng-submit="hc.uploadSong()">
+			<div class="modal-body form-group">
+			  	<label for="songTitle" class="form-control-label">
+			  	Title (File name will be used as title if blank):
+			  	</label>
+              	<input type="text" class="form-control" name="songTitle" 
+              		   id="songTitle" ng-model="hc.uploadSongFields.uploadedSongTitle">
+				<label for="uploadedFile"> Select a file to upload:</label>
+            	<input type="file" name="uploadedFile" id="uploadedFile" accept="audio/*" 
+            		   ng-model="hc.uploadSongFields.uploadedSongFile">
+            	<div class="alert alert-danger" ng-show="hc.uploadSongError">
+					{{hc.uploadSongErrorMsg}}
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-primary" type="submit">Upload</button>

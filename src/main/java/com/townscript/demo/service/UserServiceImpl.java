@@ -21,23 +21,14 @@ public class UserServiceImpl implements UserService{
     private RoleRepository roleRepository;
     
 	public void save(User user) {
-		//Set<Role> roleSet = new HashSet<Role>();
-		//roleSet.add();
 		Role userRole = roleRepository.findByName("USER");
 		System.out.println("user role retrieved is " + userRole);
-		//user.setRoles(roleSet);
 		user.setRole(userRole);
         userRepository.save(user);
 	}
 
 	public User findByUsername(String username) {
-		//findByUserName();
 		return userRepository.findByUsername(username);
 	}
 	
-/*	public List<String> findByUserName() {
-		List<String> testDistinctUsername = userRepository.findAllUsername();
-		System.out.println(testDistinctUsername);
-		return testDistinctUsername; 
-	}*/
 }
