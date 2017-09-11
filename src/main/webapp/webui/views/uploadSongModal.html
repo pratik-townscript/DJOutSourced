@@ -1,13 +1,4 @@
-<div class="container">
- <div ng-if="currUser">
-   <h2>Welcome {{currUser}}
-    <button type="button" class="btn btn-warning btn-md" data-toggle="modal" data-target="#uploadSongModal" ng-Click="hc.resetSongFields()">
-      Upload Song
-    </button> 
-    <a ng-click="hc.logout()" class="pull-right">Logout</a>
-   </h2>
-   
-   <div class="modal fade" id="uploadSongModal" role="dialog">
+<div class="modal fade" id="uploadSongModal" role="dialog">
       <div class="modal-dialog">
 		<div class="modal-content">
 		  <div class="modal-header">
@@ -17,7 +8,7 @@
 		  <form method="POST" id="uploadSongForm" enctype="multipart/form-data" ng-submit="hc.uploadSong()">
 			<div class="modal-body form-group">
 			  	<label for="songTitle" class="form-control-label">
-			  	Title (File name will be used as title if blank):
+			  	Title (Song title will be used as title if blank):
 			  	</label>
               	<input type="text" class="form-control" name="songTitle" 
               		   id="songTitle" ng-model="hc.uploadSongFields.uploadedSongTitle">
@@ -36,8 +27,3 @@
 		</div>
 	  </div>
   </div>
- </div>
- <div ng-if="!currUser">
- 	<h2>You are not Authenticated to view this screen. Please login</h2>
- </div>
-</div>

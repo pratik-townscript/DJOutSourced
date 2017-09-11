@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileOutputStream;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,20 @@ public class SongServiceImpl implements SongService{
 		}
 		System.out.println("new file name is " + newFileName);
 		return newFileName;
+	}
+
+	public List<Song> findAllSongs() {
+		
+		//String rootPath = System.getProperty("catalina.home");
+		//File dir = new File(rootPath + File.separator + "songsFolder");
+		
+		List<Song> songList = songRepository.findAll();
+		/*if(songList != null && !songList.isEmpty()) {
+			for(Song song : songList) {
+				song.setPath(dir.getAbsolutePath() + File.separator + song.getPath());
+			}
+		}*/
+		return songList;
 	}
 	
 }

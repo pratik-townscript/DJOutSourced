@@ -11,8 +11,7 @@
 </head>
 <body ng-app="mainApp">
   
-  <div class="container">
-  <div ng-view></div>
+  <div class="contentContainer" ng-view></div>
   
   <script type="text/javascript" src="res/js/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="res/js/angular/angular.min.js"></script>
@@ -24,9 +23,12 @@
   <script type="text/javascript" src="res/js/id3/id3-minimized.js"></script>
   <script type="text/javascript" src="webui/mainApp.module.js"></script>
   <script type="text/javascript" src="webui/app.js"></script>
-  <script type="text/javascript" src="webui/AppService.js"></script>
-  <script type="text/javascript" src="webui/loginController.js"></script>
-  <script type="text/javascript" src="webui/homeController.js"></script>
-  <script type="text/javascript" src="webui/registerController.js"></script>  
+  <script type="text/javascript" src="webui/js/AppService.js"></script>
+  <script type="text/javascript" src="webui/js/SongService.js"></script>
+  <script type="text/javascript" src="webui/js/WebSocketService.js"></script>
+  <script type="text/javascript" src="webui/js/currentSongPlaying.directive.js"></script>
+  <script type="text/javascript" src="webui/js/loginController.js"></script>
+  <script type="text/javascript" src="webui/js/homeController.js"></script>
+  <script type="text/javascript" src="webui/js/registerController.js"></script>  
 </body>
 </html>

@@ -1,11 +1,14 @@
 package com.townscript.demo.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="song")
@@ -14,9 +17,10 @@ public class Song {
 	private Long id;
 	private String title;
 	private String path;
-	private Long upVote;
+	private Long upVote = 0l;
 	private User user;
-
+	private boolean currentSong;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
@@ -53,4 +57,18 @@ public class Song {
 		this.user = user;
 	}
 
+	@Column(columnDefinition = "TINYINT")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	public boolean isCurrentSong() {
+		return currentSong;
+	}
+	public void setCurrentSong(boolean currentSong) {
+		this.currentSong = currentSong;
+	}
+	
+	@Override
+	public String toString() {
+		return "Song [id=" + id + ", title=" + title + ", path=" + path + ", upVote=" + upVote + ", user=" + user
+				+ ", currentSong=" + currentSong + "]";
+	}
 }

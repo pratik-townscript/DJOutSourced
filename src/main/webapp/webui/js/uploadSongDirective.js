@@ -1,4 +1,4 @@
-// Should use when it is need. Currently not needed
+// It can be used at place when user selects the song file to upload and title field gets auto field showing any error.
 var mainApp = angular.module('mainApp');
 
 mainApp.directive('songOnChange', function($parse){

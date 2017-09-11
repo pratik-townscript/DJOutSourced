@@ -33,6 +33,58 @@ body {
     border-bottom-left-radius: 0;	
 }
 
+/* .uploadButton{
+  background-color: black;
+  border-color: black;
+  color: white;
+} */
+
 .form-data button {
     margin-top: 10px;
+}
+
+html, body {
+    height: 100%;
+}
+
+.contentContainer , .displayContainer , .songContentContainer, .rowSongContentContainer{
+    height: 100%;
+    min-height: 100%;
+}
+
+.currentSong{
+	margin: 10px auto;
+	border-radius: 3px;	
+}
+
+.columnSongContentContainer{
+    height: 93%;
+    background-color: #bcb8b8;
+    display: block;
+}
+
+.currentSong {
+	height: 20%;
+    background: #999191;
+}
+
+.songQueueList {
+	height: 75%;
+	overflow: auto;
+}
+
+.songListUl span{
+	float:right;
+}
+
+.songListUl li{
+	overflow: auto;
+}
+
+.glypUpVote {
+	padding-right:20px;
+}
+
+.glypForNextSong{
+ font-size: 40px;
 }

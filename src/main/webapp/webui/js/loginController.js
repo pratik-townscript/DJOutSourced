@@ -10,8 +10,6 @@ function LoginController($rootScope, $http, $location, $route, AppService){
 			
 			var authenticate = function(user , callback){
 				
-				AppService.testMethod();
-				
 				$http.post('api/loginUser', user)
 					 .then(
 					   function(response){
@@ -24,7 +22,7 @@ function LoginController($rootScope, $http, $location, $route, AppService){
 						 		self.error = false;
 						 		console.log("current path is " + $location.path);
 						 		console.log("the username is from login is " + response.data.result.user.username);
-						 		AppService.setCredentials(response.data.result.user.username);
+						 		AppService.setCredentials(response.data.result.user);
 						 		
 						 		$location.path('/home');
 						 	}

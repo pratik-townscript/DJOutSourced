@@ -1,0 +1,17 @@
+<div class="row rowSongContentContainer">
+   		<div class="col-sm-6 col-sm-offset-3 columnSongContentContainer">
+   			<div class="currentSong">
+   			</div>
+   			<div class="songQueueList">
+   				<ul class="list-group songListUl" >
+   				 <li class="list-group-item" ng-repeat="x in allSongsList | orderBy:'-upVote'">
+   				 	{{x.title}}
+   				 	<span class="badge">{{x.upVote}}</span>     
+   				 	<span class="glyphicon glyphicon-thumbs-up glypUpVote" id="glyUpVote_{{x.id}}"
+   				 		  ng-click="hc.likeSong(currUser.id , x.id)" 
+   				 		  ng-if="!userSongUpVoteMap[x.id]"></span> 
+   				 </li>
+   				</ul>
+   			</div>
+   		</div>
+</div>

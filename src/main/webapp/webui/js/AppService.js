@@ -6,9 +6,9 @@ mainApp
    function($cookieStore){
 	var service = this;
 	
-	service.setCredentials = function(username){
-		console.log("Setting credentials for username " + username);
-		$cookieStore.put('currentUser' ,username);
+	service.setCredentials = function(user){
+		console.log("Setting credentials for username " + JSON.stringify(user));
+		$cookieStore.put('currentUser' ,user);
 	};
 	
 	service.clearCredentials = function(){
@@ -16,7 +16,4 @@ mainApp
 		$cookieStore.remove('currentUser');
 	};
 	
-	service.testMethod = function(){
-		console.log("calling test method 1");
-	};
 }]);

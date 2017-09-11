@@ -8,22 +8,22 @@ mainApp.config(function($routeProvider){
 	
 	$routeProvider
 		.when('/', {
-			templateUrl : 'webui/login.html',
+			templateUrl : 'webui/views/login.html',
 			controller  : 'loginController',
 			controllerAs: 'lc'	
 		})
 		.when('/login',{
-			templateUrl : 'webui/login.html',
+			templateUrl : 'webui/views/login.html',
 			controller  : 'loginController',
 			controllerAs: 'lc'
 		})
 		.when('/home',{
-			templateUrl : 'webui/home.html',
+			templateUrl : 'webui/views/home.html',
 			controller  : 'homeController',
 			controllerAs: 'hc'
 		})
 		.when('/register',{
-			templateUrl : 'webui/register.html',
+			templateUrl : 'webui/views/register.html',
 			controller  : 'registerController',
 			controllerAs: 'rc'
 		})
