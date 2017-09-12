@@ -25,15 +25,16 @@ public class ClientServiceImpl implements ClientService{
 	
 	public void publish() {
 		
-		List<Song> songsList = songService.findAllSongs();
-		String returnVal = this.gson.toJson(songsList);
-		System.out.println("song list is " + songsList);
-		System.out.println("sending data to client " + returnVal);
+		//List<Song> songsList = songService.findAllSongs();
+		//String returnVal = this.gson.toJson(songsList);
+		//System.out.println("song list is " + songsList);
+		//System.out.println("sending data to client " + returnVal);
 		for(Client client : clientRepository.getAll())
 		{
 			try {
 				if(client.isOpen()){
-					client.sendText(returnVal);
+					//client.getSession().getBasicRemote().
+					client.sendText("Update");
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

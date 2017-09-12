@@ -9,6 +9,6 @@ public interface VoteMapService {
 	
 	Map<Long , UserSongVoteMap> getUserUpvoteMap(Long userId);
 	
-	void resetUpVoteCoung(Long songId);
+	void resetUpVoteCount(Long songId);
 }
 

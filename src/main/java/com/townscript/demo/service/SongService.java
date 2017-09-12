@@ -11,5 +11,6 @@ public interface SongService {
 	void save(String songTitle, String userName, MultipartFile songFile) throws Exception;
 	
 	List<Song> findAllSongs();
-	
+
+	void setSongAsPlaying(long songId);
 }

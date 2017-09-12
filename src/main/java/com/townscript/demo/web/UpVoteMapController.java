@@ -48,7 +48,7 @@ public class UpVoteMapController {
 	{
 		System.out.println("song id is " + songId);
 		
-		voteMapService.resetUpVoteCoung(songId);
+		voteMapService.resetUpVoteCount(songId);
 		clientService.publish();
 		return APIResponse.toOkResponse("Successfully reset the song count");
 	}

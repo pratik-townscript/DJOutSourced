@@ -52,6 +52,32 @@ public class SongServiceImpl implements SongService{
 		songRepository.save(song);
 	}
 
+	public List<Song> findAllSongs() {
+		
+		//String rootPath = System.getProperty("catalina.home");
+		//File dir = new File(rootPath + File.separator + "songsFolder");
+		
+		List<Song> songList = songRepository.findAll();
+		/*if(songList != null && !songList.isEmpty()) {
+			for(Song song : songList) {
+				song.setPath(dir.getAbsolutePath() + File.separator + song.getPath());
+			}
+		}*/
+		return songList;
+	}
+	
+	public void setSongAsPlaying(long songId) {
+		
+		System.out.println("setting as currently playing " + songId);
+		
+		Song song = songRepository.findOne(songId);
+		
+		System.out.println("song retrieved is " + song);
+		
+		song.setCurrentSong(true);
+		songRepository.save(song);
+	}
+	
 	private String getNewFileName(String fileName , File songDir)
 	{
 		String fNameBeforeExtn = fileName.substring(0 , fileName.lastIndexOf("."));
@@ -77,19 +103,4 @@ public class SongServiceImpl implements SongService{
 		System.out.println("new file name is " + newFileName);
 		return newFileName;
 	}
-
-	public List<Song> findAllSongs() {
-		
-		//String rootPath = System.getProperty("catalina.home");
-		//File dir = new File(rootPath + File.separator + "songsFolder");
-		
-		List<Song> songList = songRepository.findAll();
-		/*if(songList != null && !songList.isEmpty()) {
-			for(Song song : songList) {
-				song.setPath(dir.getAbsolutePath() + File.separator + song.getPath());
-			}
-		}*/
-		return songList;
-	}
-	
 }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.RepositoryQuery;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -58,5 +59,13 @@ public class SongController {
 		authResp.put("songList", allSongsList);
 		
 		return APIResponse.toOkResponse(authResp);
+	}
+	
+	@RequestMapping(value="/setSongAsPlaying", method=RequestMethod.POST)
+	public @ResponseBody APIResponse setSongAsPlaying(@RequestParam(name="songId") long songId)
+	{
+		HashMap<String, Object> authResp = new HashMap<String, Object>();
+		songService.setSongAsPlaying(songId);
+		return APIResponse.toOkResponse("Succesfully set the song as playing");
 	}
 }

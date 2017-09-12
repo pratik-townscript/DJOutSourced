@@ -11,7 +11,6 @@
  <div class="container songContentContainer">
    	<div class="row rowSongContentContainer">
    		<div class="col-sm-6 col-sm-offset-3 columnSongContentContainer">
-   			<div class="currentSong">
    			  <div class="currentSongPlayOptions" ng-if="currUser.role.name == 'ADMIN'">
    				<audio id="selectedSong" controls="controls" 
    				 src="{{mainSongDir + currentPlayingSong.path}}" 
@@ -20,10 +19,13 @@
    				</audio>
    				<span class="glyphicon glyphicon-forward glypForNextSong" ng-click="hc.changeSongs()"></span>
    			  </div>
+   			  <div class="currentSong">
    			  <div class="currentSongDetailDisplay">
-   			  	{{currentPlayingSong.title}}
+   			     <marquee behavior="scroll" direction="left">
+   			       {{currentPlayingSong.title}}
+   			     </marquee>
    			  </div>
-   			</div>
+   			  </div>
    			<div class="songQueueList">
    				<ul class="list-group songListUl" >
    				 <li class="list-group-item" ng-repeat="x in allSongsList | orderBy:'-upVote'" 

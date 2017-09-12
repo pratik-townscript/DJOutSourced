@@ -57,7 +57,7 @@ public class VoteMapServiceImpl implements VoteMapService{
 	}
 	
 	@Transactional
-	public void resetUpVoteCoung(Long songId) {
+	public void resetUpVoteCount(Long songId) {
 	
 		System.out.println("deleting for song " + songId);
 		voteMapRepository.deleteBySongId(songId);
@@ -67,7 +67,7 @@ public class VoteMapServiceImpl implements VoteMapService{
 		System.out.println("song retrieved is " + song);
 		
 		song.setUpVote(0l);
-		
+		song.setCurrentSong(false);
 		songRepository.save(song);
 	}
 }

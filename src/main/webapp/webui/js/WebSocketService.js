@@ -18,7 +18,10 @@ mainApp.service('WebSocketService' , ['$rootScope', '$http', 'SongService',
         
 	    taskSocket.onmessage = function(message) {
 	    	
-	    	var tempData = JSON.parse(message.data);
+	    	SongService.getAllSongsList();
+	    	SongService.getUserUpvotedSongsId($rootScope.currUser.id);
+	    	
+	    	/*var tempData = JSON.parse(message.data);
 	    	console.log("currnt id is " + $rootScope.currentPlayingSong.id);
 	    	for(var i = 0 ; i < tempData.length; i++)
 	    	{
@@ -30,7 +33,7 @@ mainApp.service('WebSocketService' , ['$rootScope', '$http', 'SongService',
 	    	}
 	    	$rootScope.allSongsList = tempData;
 	    	SongService.getUserUpvotedSongsId($rootScope.currUser.id);
-	    	console.log("data after is " + JSON.stringify($rootScope.allSongsList));
+	    	console.log("data after is " + JSON.stringify($rootScope.allSongsList));*/
 	    	$rootScope.$apply();        
 	    };
 
