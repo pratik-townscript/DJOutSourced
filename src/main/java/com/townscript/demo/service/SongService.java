@@ -8,7 +8,7 @@ import com.townscript.demo.model.Song;
 
 public interface SongService {
 
-	void save(String songTitle, String userName, MultipartFile songFile) throws Exception;
+	void save(String songTitle, String userName, MultipartFile songFile);
 	
 	List<Song> findAllSongs();
 

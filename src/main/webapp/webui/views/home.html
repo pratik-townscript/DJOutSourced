@@ -1,5 +1,5 @@
 <div ng-if="currUser" class="displayContainer">
- <div class="container">
+ <div class="container navTopContainer">
    <h2>Welcome {{currUser.username}}
     <button type="button" class="btn btn-primary btn-md uploadButton" data-toggle="modal" data-target="#uploadSongModal" ng-Click="hc.resetSongFields()">
       Upload Song
@@ -11,21 +11,21 @@
  <div class="container songContentContainer">
    	<div class="row rowSongContentContainer">
    		<div class="col-sm-6 col-sm-offset-3 columnSongContentContainer">
-   			  <div class="currentSongPlayOptions" ng-if="currUser.role.name == 'ADMIN'">
+   			<div class="currentSongPlayOptions" ng-if="currUser.role.name == 'ADMIN'">
    				<audio id="selectedSong" controls="controls" 
-   				 src="{{mainSongDir + currentPlayingSong.path}}" 
-   				 type="audio/mpeg" preload autoplay song-action>
+   				ng-src="{{mainSongDir + currentPlayingSong.id + '.mp3' | trusted}}" type="audio/mpeg"
+   				preload autoplay song-action>
    					Your browser does not support HTML5 Audio!
    				</audio>
    				<span class="glyphicon glyphicon-forward glypForNextSong" ng-click="hc.changeSongs()"></span>
-   			  </div>
-   			  <div class="currentSong">
+   			</div>
+   			<div class="currentSong">
    			  <div class="currentSongDetailDisplay">
    			     <marquee behavior="scroll" direction="left">
    			       {{currentPlayingSong.title}}
    			     </marquee>
    			  </div>
-   			  </div>
+   			</div>
    			<div class="songQueueList">
    				<ul class="list-group songListUl" >
    				 <li class="list-group-item" ng-repeat="x in allSongsList | orderBy:'-upVote'" 
@@ -43,5 +43,5 @@
  </div>
 </div>
 <div ng-if="!currUser">
- 	<div class="container"><h2>You are not Authenticated to view this screen. Please login</h2></div>
+ 	<div class="container"><h2>You are not Authenticated to view this screen. Please <a href="#/">login</a></h2></div>
 </div>

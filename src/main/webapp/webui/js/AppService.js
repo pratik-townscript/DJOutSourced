@@ -7,7 +7,6 @@ mainApp
 	var service = this;
 	
 	service.setCredentials = function(user){
-		console.log("Setting credentials for username " + JSON.stringify(user));
 		$cookieStore.put('currentUser' ,user);
 	};
 	

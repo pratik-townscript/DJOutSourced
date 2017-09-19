@@ -6,19 +6,12 @@ import javax.websocket.Session;
 
 public class Client {
 
-	//private final String userId;
 	private final Session session;
 	
-	public Client(//String userId, 
-				  Session session) {
+	public Client(Session session) {
 		super();
-		//this.userId = userId;
 		this.session = session;
 	}
-
-	/*public String getUserId() {
-		return userId;
-	}*/
 
 	public Session getSession() {
 		return session;
@@ -57,10 +50,4 @@ public class Client {
 			return false;
 		return true;
 	}
-	
-	/*public void sendObject(Object object) throws Exception {
-		this.session.getBasicRemote().sendObject(object);
-	}*/
-	
-	
 }

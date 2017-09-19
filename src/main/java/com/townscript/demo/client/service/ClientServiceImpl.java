@@ -1,43 +1,32 @@
 package com.townscript.demo.client.service;
 
 import java.io.IOException;
-import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.Gson;
 import com.townscript.demo.client.model.Client;
 import com.townscript.demo.client.repository.ClientRepository;
-import com.townscript.demo.model.Song;
-import com.townscript.demo.service.SongService;
 
 @Service
 public class ClientServiceImpl implements ClientService{
-
+	
+	private static final Logger logger = Logger.getLogger(ClientServiceImpl.class);
+	
 	@Autowired
 	private ClientRepository clientRepository;
 	
-	@Autowired
-	private SongService songService;
-
-	private Gson gson = new Gson();
-	
 	public void publish() {
-		
-		//List<Song> songsList = songService.findAllSongs();
-		//String returnVal = this.gson.toJson(songsList);
-		//System.out.println("song list is " + songsList);
-		//System.out.println("sending data to client " + returnVal);
 		for(Client client : clientRepository.getAll())
 		{
 			try {
+				//For the open connections we are going to ask clients to make new requests to get all songs 
 				if(client.isOpen()){
-					//client.getSession().getBasicRemote().
-					client.sendText("Update");
+					client.sendText("Refresh");
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.getMessage(), e);
 			}
 		}
 	}

@@ -1,7 +1,6 @@
 package com.townscript.demo.client.repository;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.context.annotation.Scope;

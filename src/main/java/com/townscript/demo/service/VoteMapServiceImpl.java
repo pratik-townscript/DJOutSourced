@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.transaction.Transactional;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,8 @@ import com.townscript.demo.repository.UserSongUpVoteMapRepository;
 
 @Service
 public class VoteMapServiceImpl implements VoteMapService{
-
+	private static final Logger logger = Logger.getLogger(VoteMapServiceImpl.class);
+	
 	@Autowired
 	UserSongUpVoteMapRepository voteMapRepository;
 
@@ -29,25 +31,19 @@ public class VoteMapServiceImpl implements VoteMapService{
 		songMap.setUserId(userId);
 		songMap.setSongId(songId);
 		
-		System.out.println("saving vote map");
+		logger.info("Saving upvote by " + userId + " for song " + songId);
 		voteMapRepository.save(songMap);
 		
 		Song song = songRepository.findOne(songId);
-		
-		System.out.println("song retrieved is " + song);
-		
 		song.setUpVote(song.getUpVote() + 1);
-		
 		songRepository.save(song);
 	}
 
 	public Map<Long, UserSongVoteMap> getUserUpvoteMap(Long userId) {
 		
 		Map<Long , UserSongVoteMap> userSongVoteMap = new HashMap<Long, UserSongVoteMap>();
-		
 		List<UserSongVoteMap> upvotedSongList = voteMapRepository.findAllByUserId(userId);
-		System.out.println("list is " + upvotedSongList);
-		
+
 		if(upvotedSongList != null && !upvotedSongList.isEmpty()) {
 			for(UserSongVoteMap vote : upvotedSongList) {
 				userSongVoteMap.put(vote.getSongId(), vote);
@@ -58,14 +54,11 @@ public class VoteMapServiceImpl implements VoteMapService{
 	
 	@Transactional
 	public void resetUpVoteCount(Long songId) {
-	
-		System.out.println("deleting for song " + songId);
+
+		logger.info("Reseting votes for song " + songId);
 		voteMapRepository.deleteBySongId(songId);
 		
 		Song song = songRepository.findOne(songId);
-		
-		System.out.println("song retrieved is " + song);
-		
 		song.setUpVote(0l);
 		song.setCurrentSong(false);
 		songRepository.save(song);

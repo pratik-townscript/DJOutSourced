@@ -16,7 +16,6 @@ public class Song {
 
 	private Long id;
 	private String title;
-	private String path;
 	private Long upVote = 0l;
 	private User user;
 	private boolean currentSong;
@@ -35,12 +34,7 @@ public class Song {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getPath() {
-		return path;
-	}
-	public void setPath(String path) {
-		this.path = path;
-	}
+	
 	public Long getUpVote() {
 		return upVote;
 	}
@@ -68,7 +62,7 @@ public class Song {
 	
 	@Override
 	public String toString() {
-		return "Song [id=" + id + ", title=" + title + ", path=" + path + ", upVote=" + upVote + ", user=" + user
+		return "Song [id=" + id + ", title=" + title + ", upVote=" + upVote + ", user=" + user
 				+ ", currentSong=" + currentSong + "]";
 	}
 }

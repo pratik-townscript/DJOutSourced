@@ -5,25 +5,14 @@ var mainApp = angular.module('mainApp');
 
 mainApp.controller('homeController', ['$location','$scope' ,'$rootScope', '$http', '$cookieStore', 'AppService','SongService', 'WebSocketService', HomeController]);
 
-/**
- * @param $location
- * @param $scope
- * @param $rootScope
- * @param $http
- * @param $cookieStore
- * @param AppService
- * @returns
- */
 function HomeController($location, $scope, $rootScope, $http, $cookieStore, AppService, SongService, WebSocketService){
-	console.log("Home Controller called");
-	console.log("user is " + JSON.stringify($cookieStore.get('currentUser')));
-	
 	var self = this;
 	
 	self.uploadSongFields = {};
 	self.uploadSongError = false;
 	self.uploadSongErrorMsg = null;
 	self.allSongsList = {};
+	self.uploadInProcess = false;
 	
 	var myUser = $cookieStore.get('currentUser');
 	$rootScope.currUser = null;
@@ -42,6 +31,7 @@ function HomeController($location, $scope, $rootScope, $http, $cookieStore, AppS
 	
 	self.likeSong = function(userId , songId){
 		console.log("Increase the count with id " + songId + " by user " + userId);
+		document.getElementById("glyUpVote_" + songId).style.display = 'none';
 		var fd = new FormData();
 		fd.append('userId' , userId);
 		fd.append('songId', songId);
@@ -52,10 +42,8 @@ function HomeController($location, $scope, $rootScope, $http, $cookieStore, AppS
 		 })
 		 .then(function(response){
 			console.log("successful in upvoting");
-			document.getElementById("glyUpVote_" + songId).style.display = 'none';
 		 }, function(response){
-			console.log("failed to upvote song");
-			console.log("error response is " + JSON.stringify(response));
+			console.log("Failed to upvote song. Error response is " + JSON.stringify(response));
 		 });
 	};
 	
@@ -66,8 +54,6 @@ function HomeController($location, $scope, $rootScope, $http, $cookieStore, AppS
 	};
 	
 	self.uploadSong = function(){
-		console.log("received upload song request");
-		console.log("upload title is " + self.uploadSongFields.uploadedSongTitle);
 		
 		var x = document.getElementById("uploadedFile");
 		
@@ -81,21 +67,16 @@ function HomeController($location, $scope, $rootScope, $http, $cookieStore, AppS
 			var fileSize = file.size;
 			var fileExtension = fileName.split('.').pop();
 			
-			console.log("file name is " + fileName);
-			console.log("file size is " + fileSize/1000000);
-			
 			if(fileSize > MAX_FILE_SIZE)
 			{
 				self.uploadSongError = true;
 				self.uploadSongErrorMsg = "File Size exceeds " + (MAX_FILE_SIZE/1000000) + " MB";
 			}
 			else if(fileExtension.toLowerCase() != 'mp3'){
-				console.log("not valid version");
 				self.uploadSongError = true;
 				self.uploadSongErrorMsg = "Please upload mp3 version of file only";
 			}
 			else {
-				console.log("user that will be sent is " + $rootScope.currUser.username);
 				
 				var songTitle = null;
 				
@@ -121,6 +102,13 @@ function HomeController($location, $scope, $rootScope, $http, $cookieStore, AppS
 					}
 					else
 					{
+						console.log("Starting to upload song");
+						self.uploadInProcess = true;
+						
+						document.getElementById("uploadSongConfirmButton").disabled = true;
+						
+						$('body').addClass('wait');
+						
 						var fd = new FormData();
 						fd.append('file' , file);
 						fd.append('songTitle', songTitle);
@@ -130,24 +118,30 @@ function HomeController($location, $scope, $rootScope, $http, $cookieStore, AppS
 							transformRequest : angular.identity, headers : { 'Content-Type' : undefined}
 						})
 						.then(function(response){
+							self.uploadInProcess = false;
 							
 							if(response.data.code == 200){
 								console.log("success in uploading songs");
 								self.uploadSongError = false;
 								self.uploadSongErrorMsg = null;
 								
+								$('body').removeClass('wait');
 								$('#uploadSongModal').modal('hide');
 							}
 							else{
 								console.log("error with response " + JSON.stringify(response));
 								self.uploadSongError = true;
 								self.uploadSongErrorMsg = response.data.result;
+								 $('body').removeClass('wait');
 							}
+							document.getElementById("uploadSongConfirmButton").disabled = false;
 						},function(response){
-							console.log("error in uploading songs");
-						 	console.log("json response is " + JSON.stringify(response));
+						 	console.log("Error in uploading songs. JSON response is " + JSON.stringify(response));
+							self.uploadInProcess = false;
 						 	self.uploadSongError = true;
 						 	self.uploadSongErrorMsg = "Error occured while uploading Song. Please try again";
+						 	document.getElementById("uploadSongConfirmButton").disabled = false;
+						 	 $('body').removeClass('wait');
 						});
 					}
 				 },{
@@ -163,6 +157,7 @@ function HomeController($location, $scope, $rootScope, $http, $cookieStore, AppS
 		self.uploadSongFields = {};
 		self.uploadSongError = false;
 		self.uploadSongErrorMsg = null;
+		self.uploadInProcess = false;
 		document.getElementById("uploadSongForm").reset();
 	};
 	

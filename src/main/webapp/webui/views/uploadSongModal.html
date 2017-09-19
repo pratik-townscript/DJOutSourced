@@ -18,9 +18,13 @@
             	<div class="alert alert-danger" ng-show="hc.uploadSongError">
 					{{hc.uploadSongErrorMsg}}
 				</div>
+				<div class="alert alert-info" ng-show="hc.uploadInProcess">
+					Please Wait. Uploading Song ....
+				</div>
+				
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-primary" type="submit">Upload</button>
+				<button id="uploadSongConfirmButton" class="btn btn-primary" type="submit">Upload</button>
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 			</div>
 		  </form>

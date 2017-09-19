@@ -6,10 +6,9 @@ mainApp.service('WebSocketService' , ['$rootScope', '$http', 'SongService',
 	var service = this;
 	
 	service.init = function(){
-	    // WebSocket Initialization
 		console.log("initing the websocket service");
 		
-	    var taskSocket = new WebSocket("ws://localhost:8080/DJOutSourced2/getRealSongList");
+	    var taskSocket = new WebSocket(service.getUrl());
 	 
 	    taskSocket.onopen = function()
         {
@@ -17,34 +16,33 @@ mainApp.service('WebSocketService' , ['$rootScope', '$http', 'SongService',
         };
         
 	    taskSocket.onmessage = function(message) {
-	    	
 	    	SongService.getAllSongsList();
 	    	SongService.getUserUpvotedSongsId($rootScope.currUser.id);
-	    	
-	    	/*var tempData = JSON.parse(message.data);
-	    	console.log("currnt id is " + $rootScope.currentPlayingSong.id);
-	    	for(var i = 0 ; i < tempData.length; i++)
-	    	{
-	    		var obj = tempData[i];
-	    		if($rootScope.currentPlayingSong.id == obj.id){
-	    			console.log("ids matched " + $rootScope.currentPlayingSong.id);
-	    			tempData.splice(i,1);
-	    		}
-	    	}
-	    	$rootScope.allSongsList = tempData;
-	    	SongService.getUserUpvotedSongsId($rootScope.currUser.id);
-	    	console.log("data after is " + JSON.stringify($rootScope.allSongsList));*/
 	    	$rootScope.$apply();        
 	    };
 
 	    taskSocket.onclose = function() {
 	    	console.log("web socket closing");
-	        /*$scope.message = {
-	            type: "danger",
-	            short: "Socket error",
-	            long: "An error occured with the WebSocket."
-	        };
-	        $scope.$apply();    */
+	    	SongService.getAllSongsList();
+	    	SongService.getUserUpvotedSongsId($rootScope.currUser.id);
+	    	$rootScope.$apply();
 	    }
+	    
+	    taskSocket.onError = function(){
+	    	console.log("There was some error connecting to server. Refreshing");
+	    	SongService.getAllSongsList();
+	    	SongService.getUserUpvotedSongsId($rootScope.currUser.id);
+	    	$rootScope.$apply();
+	    }
+	}
+	
+	service.getUrl = function(){
+		var url = window.location.href;
+	    var n = url.indexOf("//");
+	    var a = url.indexOf("/",n+2);
+	    var b = url.indexOf("/",a+1);
+	    var result = "ws:";
+	    result = result + url.substring(n,b) + "/getRealSongList";
+		return result;
 	}
 }]);

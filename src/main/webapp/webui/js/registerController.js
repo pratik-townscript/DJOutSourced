@@ -3,9 +3,6 @@ var mainApp = angular.module('mainApp');
 mainApp.controller('registerController', ['$rootScope', '$http' , '$location', 'AppService', RegisterController]);
 
 function RegisterController($rootScope , $http, $location, AppService){
-	
-	console.log("From the registration controller");
-	
 	var self = this;
 	self.error = false;
 	self.errorMsg = null;
@@ -13,14 +10,30 @@ function RegisterController($rootScope , $http, $location, AppService){
 	self.credentials = {};
 	
 	self.registerUser = function(){
-		console.log("register method invoked");
 		self.error = false;
 		self.errorMsg = null;
 		
-		if(self.credentials.password !== self.credentials.passwordConfirm)
+		if(!self.credentials.username
+			|| !self.credentials.password 
+			|| !self.credentials.passwordConfirm)
+		{
+			self.error = true;
+			self.errorMsg = "Please don't keep any field blank";
+		}
+		else if(self.credentials.username.length > 40)
+		{
+			self.error = true;
+			self.errorMsg = "Username length exceed max value 40";
+		}	
+		else if(self.credentials.password !== self.credentials.passwordConfirm)
 		{
 			self.error = true;
 			self.errorMsg = "Passwords are not same";
+		}
+		else if(self.credentials.password.length > 40)
+		{
+			self.error = true;
+			self.errorMsg = "Password length exceed max value 40";
 		}
 		else
 		{
@@ -35,29 +48,22 @@ function RegisterController($rootScope , $http, $location, AppService){
 		$http.post('api/registerUser' , user)
 			.then(
 				function(response){
-				 	console.log("response is " + response);
-				 	console.log("json response is " + JSON.stringify(response));
-				 	console.log("response code is " + response.data.code);
 				 	
 				 	if(response.data.code == 200){
 				 		self.error = false;
 				 		self.errorMsg = null;
-				 		console.log("everythings look good");
 				 		
-				 		console.log("the username is from login is " + response.data.result.user.username);
 				 		AppService.setCredentials(response.data.result.user.username);
 				 		
 				 		$location.path('/home');
-				 		
 				 	}
 				 	else{
 				 		self.error = true;
-				 		console.log("Response data is " + response.data.result);
+				 		console.log("Error on Registering. Response data is " + response.data.result);
 				 		self.errorMsg = response.data.result;
 				 	}
 				 	
 				},function(response){
-					 console.log("error somewhere");
 					 self.error = true;
 					 self.errorMsg = "Error trying to Register. Please try Again";
 				});

@@ -10,7 +10,6 @@ public class APIResponse implements Serializable{
 	private static final long serialVersionUID = 1L;
 	public static final String API_RESPONSE = "apiResponse";
     Object result;
-    //String time;
     long code;
 	public Object getResult() {
 		return result;
@@ -38,7 +37,6 @@ public class APIResponse implements Serializable{
         APIResponse response = new APIResponse();
         response.setResult(data);
         response.setCode(code);
-        System.out.println("response is " +  data + " and code is " + code);
         return response;
     }
 }

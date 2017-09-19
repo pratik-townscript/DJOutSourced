@@ -3,8 +3,8 @@ package com.townscript.demo.web;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.RepositoryQuery;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +19,7 @@ import com.townscript.demo.service.SongService;
 
 @Controller
 public class SongController {
+	private static final Logger logger = Logger.getLogger(SongController.class);
 	protected static final String JSON_API_CONTENT_HEADER = "Content-type=application/json";
 	
 	@Autowired
@@ -31,9 +32,7 @@ public class SongController {
 												 @RequestParam("username") String userName,
 												 @RequestParam("file") MultipartFile songFile)
 	{
-		System.out.println("input title is " + songTitle);
-		System.out.println("input userName is " + userName);
-		System.out.println("input songFile is " + songFile);
+		logger.info("Uploading Song by user: " + userName + " , song title is " + songTitle);
 		
 		if(songFile.isEmpty())
 		{
@@ -44,6 +43,7 @@ public class SongController {
 			clientService.publish();
 			return APIResponse.toOkResponse("Successfully uploaded Song");
 		} catch (Exception e) {
+			logger.error(e.getMessage() , e);
 			return APIResponse.toErrorResponse("Unable to upload file because of error " + e.getMessage());
 		}
 	}
@@ -51,8 +51,6 @@ public class SongController {
 	@RequestMapping(value="/getAllSongs" , method=RequestMethod.GET)
 	public @ResponseBody APIResponse getAllSongs()
 	{
-		System.out.println("Method to get all songs invoked");
-		
 		HashMap<String, Object> authResp = new HashMap<String, Object>();
 		List<Song> allSongsList = songService.findAllSongs();
 		
@@ -64,7 +62,6 @@ public class SongController {
 	@RequestMapping(value="/setSongAsPlaying", method=RequestMethod.POST)
 	public @ResponseBody APIResponse setSongAsPlaying(@RequestParam(name="songId") long songId)
 	{
-		HashMap<String, Object> authResp = new HashMap<String, Object>();
 		songService.setSongAsPlaying(songId);
 		return APIResponse.toOkResponse("Succesfully set the song as playing");
 	}
