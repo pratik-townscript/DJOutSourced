@@ -19,7 +19,7 @@
         <jstl.version>1.2</jstl.version>
         <junit.version>3.8.1</junit.version>
         <jackson.version>1.9.13</jackson.version>
-        <fasterxmlJackson.version>2.4.3</fasterxmlJackson.version>
+        <fasterxmlJackson.version>2.13.4.1</fasterxmlJackson.version>
         <orgJson.version>20141113</orgJson.version>
   </properties>  
   
